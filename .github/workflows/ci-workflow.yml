@@ -1,0 +1,63 @@
+name: ci to production
+
+on:
+  push:
+    branches: [ '**' ]
+  pull_request:
+    branches: [ '**' ]
+  workflow_dispatch:
+
+jobs:
+  push_docker_image_to_github_packages:
+
+    
+    name: Build and push docker images
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v2
+      - name: Permissions
+        run: chmod +x ./deploy.sh
+      - name: Deploy
+        run: ./deploy.sh
+        env:
+          CR_PAT: ${{ secrets.CR_PAT }}
+          KUBECTL_CONFIG: ${{ secrets.EKS_KUBECONFIG  }}
+          BUILD_NUMBER: ${{ github.run_number }}
+          DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
+          DOCKER_USER: ${{ secrets.DOCKER_USER  }}
+
+  deploy_to_kubernetes_cluster:
+    name: Deploy to Kubernetes Cluster
+    needs: push_docker_image_to_github_packages
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Setup kubeconfig
+        id: setup-kubeconfig
+        env:
+          CLUSTER_NAME: workstationpv
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          
+        run: |
+          aws eks --region $AWS_REGION update-kubeconfig --name $CLUSTER_NAME
+      - name: Deploy to Cluster
+        env:
+          BUILD_NUMBER: ${{ github.run_number }}
+        run: |
+          export BUILD_TAG=django-prod-$BUILD_NUMBER
+          sed -i "s/VERSION/${BUILD_TAG}/g" ./k8s/deploy.yaml
+          sed -i "s/VERSION/${BUILD_TAG}/g" ./k8s/celery-worker.yaml
+          sed -i "s/VERSION/${BUILD_TAG}/g" ./k8s/celery-flower.yaml
+          envsubst < k8s/kustomization.tmpl.yaml > k8s/kustomization.yaml
+          kubectl kustomize k8s | kubectl apply -f 
