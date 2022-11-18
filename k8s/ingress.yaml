@@ -1,0 +1,18 @@
+ apiVersion: networking.k8s.io/v1beta1 # for versions before 1.14 use extensions/v1beta1
+ kind: Ingress
+ metadata:
+   name: devops_challenge-app-ingress
+   annotations:
+     nginx.ingress.kubernetes.io/rewrite-target: /
+ spec:
+   backend: 
+     serviceName: default-http-backend
+     servicePort: 80
+   rules:
+   - host: mylocal-minikube.info
+     http:
+       paths:
+        - path: /local
+          backend:
+            serviceName: devops_challenge-app
+            servicePort: 8080

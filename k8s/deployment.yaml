@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/name: devops_challenge-app
+  name: devops_challenge
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: devops_challenge
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: devops_challenge
+    spec:
+      containers:
+      - image: ronniewasabi/golang-hello-world
+        name: devops_challenge
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
