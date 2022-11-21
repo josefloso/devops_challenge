@@ -62,6 +62,42 @@ Vagrant.configure("2") do |config|
      # Set vagrant box name
      vb.name = "devops_challenge"
   end
+
+  
+  # Kubernetes Master Server
+  config.vm.define "kmaster" do |kmaster|
+    kmaster.vm.box = "ubuntu/bionic64"
+    kmaster.vm.hostname = "kmaster.devops.ke"
+    kmaster.vm.network "private_network", ip: "172.42.42.100"
+    kmaster.vm.network "forwarded_port", guest: 32001, host: 9000
+    kmaster.vm.provider "virtualbox" do |v|
+      v.name = "kmaster"
+      v.memory = 2048
+      v.cpus = 2
+      # Prevent VirtualBox from interfering with host audio stack
+      v.customize ["modifyvm", :id, "--audio", "none"]
+    end
+    kmaster.vm.provision "shell", path: "scripts/k8s_master.sh"
+  end
+
+  NodeCount = 2
+
+  # Kubernetes Worker Nodes
+  (1..NodeCount).each do |i|
+    config.vm.define "kworker#{i}" do |workernode|
+      workernode.vm.box = "ubuntu/bionic64"
+      workernode.vm.hostname = "kworker#{i}.devops.ke"
+      workernode.vm.network "private_network", ip: "172.42.42.10#{i}"
+      workernode.vm.provider "virtualbox" do |v|
+        v.name = "kworker#{i}"
+        v.memory = 1024
+        v.cpus = 1
+        # Prevent VirtualBox from interfering with host audio stack
+        v.customize ["modifyvm", :id, "--audio", "none"]
+      end
+      workernode.vm.provision "shell", path: "scripts/k8s_worker.sh"
+    end
+  end
   #
   # View the documentation for the provider you are using for more
   # information on available options.
@@ -87,39 +123,5 @@ Vagrant.configure("2") do |config|
   SHELL
 
 
-  # Kubernetes Master Server
-  config.vm.define "kmaster" do |kmaster|
-    kmaster.vm.box = "centos/8"
-    kmaster.vm.hostname = "kmaster.devops.ke"
-    kmaster.vm.network "private_network", ip: "172.42.42.100"
-    kmaster.vm.network "forwarded_port", guest: 32001, host: 9000
-    kmaster.vm.provider "virtualbox" do |v|
-      v.name = "kmaster"
-      v.memory = 2048
-      v.cpus = 2
-      # Prevent VirtualBox from interfering with host audio stack
-      v.customize ["modifyvm", :id, "--audio", "none"]
-    end
-    kmaster.vm.provision "shell", path: "scripts/k8s_master.sh"
-  end
-
-  NodeCount = 2
-
-  # Kubernetes Worker Nodes
-  (1..NodeCount).each do |i|
-    config.vm.define "kworker#{i}" do |workernode|
-      workernode.vm.box = "centos/8"
-      workernode.vm.hostname = "kworker#{i}.devops.ke"
-      workernode.vm.network "private_network", ip: "172.42.42.10#{i}"
-      workernode.vm.provider "virtualbox" do |v|
-        v.name = "kworker#{i}"
-        v.memory = 1024
-        v.cpus = 1
-        # Prevent VirtualBox from interfering with host audio stack
-        v.customize ["modifyvm", :id, "--audio", "none"]
-      end
-      workernode.vm.provision "shell", path: "scripts/k8s_worker.sh"
-    end
-  end
 
 end
