@@ -77,3 +77,12 @@ When all three processes are running, you can go to `localhost:8080/` and submit
 
 
 
+Production Readiness
+
+    Gunicorn has been a production webserver.
+    Nginx has been used a reverse proxy to serve traffic.
+    For a production database, postgres has been deployed running in a container.
+
+
+Failed CICD process
+
