@@ -69,3 +69,11 @@ $ (venv) python -m celery -A django_celery worker
 ```
 
 When all three processes are running, you can go to `localhost:8080/` and submit a feedback response. Celery will simulate a work-intensive process and send an email at the end of it. You'll see the email message show up in the log stream on the terminal window where the Celery worker is running.
+
+
+
+![Screenshot 2022-11-28 at 20 52 26](https://user-images.githubusercontent.com/7838284/204348064-86b50495-9dc7-42af-8067-602e3e1d64e3.png)
+![Screenshot 2022-11-28 at 20 51 56](https://user-images.githubusercontent.com/7838284/204348081-32c651d6-b184-4cd1-a4a1-3016abcc16cd.png)
+
+
+
