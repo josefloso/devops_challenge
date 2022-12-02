@@ -119,6 +119,11 @@ Once the containers are up, the entrypoint scripts will execute and then, once P
 
 Make sure you can view the Django welcome screen at http://localhost/. You should be able to view the Flower dashboard at http://localhost:5555/ as well.
 
+![Screenshot 2022-12-02 at 10 17 19](https://user-images.githubusercontent.com/7838284/205367223-36aa1e65-c1c9-47a5-b792-3bcc2308f219.png)
 
+![Screenshot 2022-12-02 at 11 07 00](https://user-images.githubusercontent.com/7838284/205367254-59d261c9-561d-4b06-98c0-b56f9f0df5d9.png)
+![Screenshot 2022-12-02 at 11 04 21](https://user-images.githubusercontent.com/7838284/205367269-0c47c00f-1102-457f-8a23-6772906e0e9a.png)
+![Screenshot 2022-12-02 at 10 26 28](https://user-images.githubusercontent.com/7838284/205367275-1a142281-bab8-476c-98bf-31801a4428df.png)
+![Screenshot 2022-12-01 at 22 47 41](https://user-images.githubusercontent.com/7838284/205367280-8455f8d0-4891-4b66-8cf6-3d43f3ee72e2.png)
 
 
