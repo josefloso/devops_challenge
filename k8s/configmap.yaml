@@ -5,7 +5,7 @@ metadata:
 data:
   #env variables for the postgres component
   POSTGRES_USER: postgres
-  POSTGRES_DB: app
+  POSTGRES_DB: devops_challenge_app
 
   #env variables for the backend component
   DJANGO_ENV: development
@@ -17,7 +17,7 @@ data:
 
   DATABASE: postgres
   DB_ENGINE: "django.db.backends.postgresql"
-  DB_NAME: app
+  DB_NAME: devops_challenge_app
   DB_USER: postgres
   DB_HOST: postgres-cluster-ip-service
   DB_PORT: "5432"

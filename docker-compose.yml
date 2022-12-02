@@ -79,8 +79,8 @@ services:
     restart: always
     volumes:
       - ./nginx/conf.d:/etc/nginx/conf.d
-      - static_volume:/app/static
-      - media_volume:/app/media
+      - static_volume:/devops_challenge_app/static
+      - media_volume:/devops_challenge_app/media
     ports:
       - "80:80"
     depends_on:
