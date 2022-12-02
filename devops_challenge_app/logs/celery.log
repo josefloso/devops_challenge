@@ -869,3 +869,27 @@ Thank you!
 [2022-12-02 07:02:03,067: WARNING/ForkPoolWorker-1] -------------------------------------------------------------------------------
 [2022-12-02 07:02:03,594: INFO/MainProcess] Events of group {task} enabled by remote.
 [2022-12-02 07:02:06,075: INFO/ForkPoolWorker-1] Task feedback.tasks.send_feedback_email_task[bf32004f-06ae-42fa-b3a2-0fd110d0107a] succeeded in 27.98950770999727s: None
+[2022-12-02 07:15:21,565: INFO/MainProcess] Connected to redis://redis:6379/0
+[2022-12-02 07:15:21,763: INFO/MainProcess] mingle: searching for neighbors
+[2022-12-02 07:15:23,136: INFO/MainProcess] mingle: all alone
+[2022-12-02 07:15:24,688: WARNING/MainProcess] /usr/local/lib/python3.9/site-packages/celery/fixups/django.py:203: UserWarning: Using settings.DEBUG leads to a memory
+            leak, never use this setting in production environments!
+  warnings.warn('''Using settings.DEBUG leads to a memory
+
+[2022-12-02 07:15:24,718: INFO/MainProcess] celery@c458af1ae29e ready.
+[2022-12-02 07:15:52,470: INFO/MainProcess] Events of group {task} enabled by remote.
+[2022-12-02 07:28:07,653: INFO/MainProcess] Task feedback.tasks.send_feedback_email_task[54e455dd-2d01-4593-8666-b13eafebfa7b] received
+[2022-12-02 07:28:31,071: WARNING/ForkPoolWorker-1] Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Subject: Your Feedback
+From: support@example.com
+To: josefkariuki@gmail.com
+Date: Fri, 02 Dec 2022 07:28:30 -0000
+Message-ID: <166996611070.8.12070305623360113483@c458af1ae29e>
+
+	coolest dude alive
+
+Thank you!
+[2022-12-02 07:28:31,388: WARNING/ForkPoolWorker-1] -------------------------------------------------------------------------------
+[2022-12-02 07:28:33,528: INFO/ForkPoolWorker-1] Task feedback.tasks.send_feedback_email_task[54e455dd-2d01-4593-8666-b13eafebfa7b] succeeded in 23.895604452001862s: None

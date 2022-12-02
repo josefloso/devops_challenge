@@ -76,13 +76,49 @@ When all three processes are running, you can go to `localhost:8080/` and submit
 ![Screenshot 2022-11-28 at 20 51 56](https://user-images.githubusercontent.com/7838284/204348081-32c651d6-b184-4cd1-a4a1-3016abcc16cd.png)
 
 
+##### Production Readiness
 
-Production Readiness
+Gunicorn has been a production webserver.
+Nginx has been used a reverse proxy to serve traffic.
 
-    Gunicorn has been a production webserver.
-    Nginx has been used a reverse proxy to serve traffic.
-    For a production database, postgres has been deployed running in a container.
+Instead of having to run each process (e.g., Django, Celery worker, Celery beat, Flower, Redis, Postgres, etc.) manually, each from a different terminal window, after we containerize each service, Docker Compose enables us to manage and run the containers using a single command.
+
+Start by adding a docker-compose.yml file to the project root.
+
+Here, we defined six services:
+1. web is the Django dev server
+2. db is the Postgres server
+3. redis is the Redis service, which will be used as the Celery message broker and result backend
+4. celery_worker is the Celery worker process
+5. flower is the Celery dashboard
+6. Nginx used as a reverse proxy 
+
+Create a new folder to store environment variables in the project root called .env.dev
 
 
-Failed CICD process
+Create a Dockerfile which is a text file that contains the commands required to build an image.
+
+#### Entrypoint
+We used a depends_on key for the web service to ensure that it does not start until both the redis and the db services are up. Just because the db container is up does not mean the database is up and ready to handle connections. So, we can use a shell script called entrypoint to ensure that we can actually connect to the database before we spin up the web service.
+
+Start by building the images:
+```
+$ docker-compose build
+
+```
+Once the images are built, spin up the containers in detached mode:
+```
+$ docker-compose up -d
+
+```
+
+This will spin up each of the containers based on the order defined in the depends_on option:
+redis and db containers first
+Then the web, celery_worker, celery_beat, and flower containers
+Once the containers are up, the entrypoint scripts will execute and then, once Postgres is up, the respective start scripts will execute. The Django migrations will be applied and the development server will run. The Django app should then be available.
+
+Make sure you can view the Django welcome screen at http://localhost/. You should be able to view the Flower dashboard at http://localhost:5555/ as well.
+
+
+
 
