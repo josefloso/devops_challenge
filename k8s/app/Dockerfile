@@ -2,7 +2,7 @@ FROM python:3.10-slim-buster
 
 ENV PYTHONBUFFERED 1
 
-COPY ./app/requirements.txt /requirements.txt
+COPY . /devops_challenge_app/requirements.txt
 RUN apk add --update --no-cache postgresql-client
 RUN apk add --update --no-cache --virtual .temp-build-deps \
         && apk add gcc libc-dev linux-headers postgresql-dev \
