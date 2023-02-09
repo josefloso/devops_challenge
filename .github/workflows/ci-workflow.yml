@@ -25,8 +25,8 @@ jobs:
           KUBECTL_CONFIG: ${{ secrets.EKS_KUBECONFIG  }}
           BUILD_NUMBER: ${{ github.run_number }}
           DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
-          DOCKER_USER: ${{ secrets.DOCKER_USER  }}
-
+          DOCKER_USER: ${{ secrets.DOCKER_USER  }}envsubst < k8s/kustomization.tmpl.yaml > k8s/kustomization.yamlenvsubst < k8s/kustomization.tmpl.yaml > k8s/kustomization.yamlenvsubst < k8s/kustomization.tmpl.yaml > k8s/kustomization.yamlenvsubst < k8s/kustomization.tmpl.yaml > k8s/kustomization.yamlenvsubst < k8s/kustomization.tmpl.yaml > k8s/kustomization.yamlenvsubst < k8s/kustomization.tmpl.yaml > k8s/kustomization.yaml
+                                                  
   deploy_to_kubernetes_cluster:
     name: Deploy to Kubernetes Cluster
     needs: push_docker_image_to_github_packages
