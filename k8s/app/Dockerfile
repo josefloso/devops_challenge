@@ -12,7 +12,7 @@ RUN apk add --update --no-cache --virtual .temp-build-deps \
 
 
 RUN mkdir app
-WORKDIR /app
-COPY /app /app
+WORKDIR /devops_challenge_app
+COPY /devops_challenge_app /devops_challenge_app
 EXPOSE 8000
 CMD ["python","manage.py","runserver","0.0.0.0:8000"]

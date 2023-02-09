@@ -11,6 +11,6 @@ RUN pip install -r /requirements.txt
 RUN apk del .tmp-build-deps
 
 
-RUN mkdir /app
-COPY /app /app
-WORKDIR /app
+RUN mkdir /devops_challenge_app
+COPY /devops_challenge_app /devops_challenge_app
+WORKDIR /devops_challenge_app
