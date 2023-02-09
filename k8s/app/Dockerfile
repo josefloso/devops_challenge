@@ -1,8 +1,8 @@
 FROM python:3.9.5-alpine
 
 ENV PYTHONBUFFERED 1
+COPY ./requirements.txt /requirements.txt
 
-COPY ./devops_challenge_app /requirements.txt
 RUN apk add --update --no-cache postgresql-client
 RUN apk add --update --no-cache --virtual .temp-build-deps \
         && apk add gcc libc-dev linux-headers postgresql-dev \
