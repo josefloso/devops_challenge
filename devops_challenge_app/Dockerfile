@@ -4,7 +4,7 @@ FROM python:3.9.5-alpine
 
 
 ENV PYTHONUNBUFFERED 1
-COPY ./requirements.txt /requirements.txt
+COPY . /requirements.txt
 RUN apk add --update --no-cache jpeg-dev postgresql-client 
 # RUN apk add install -y --no-install-recommends  
 RUN apk add --update --no-cache --virtual .tmp-build-deps \ 
