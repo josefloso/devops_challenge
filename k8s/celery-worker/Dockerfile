@@ -1,6 +1,5 @@
 FROM python:3.9.5-alpine
 
-
 ENV PYTHONUNBUFFERED 1
 COPY ./devops_challenge_app /requirements.txt
 RUN apk add --update --no-cache jpeg-dev postgresql-client 
