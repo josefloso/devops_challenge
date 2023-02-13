@@ -60,8 +60,8 @@ jobs:
           sed -i "s/VERSION/${BUILD_TAG}/g" ./k8s/celery-worker.yaml
           sed -i "s/VERSION/${BUILD_TAG}/g" ./k8s/celery-flower.yaml
           envsubst < k8s/kustomization.tmpl.yaml > k8s/kustomization.yaml
+          envsubst < k8s/kustomization.tmpl.yaml > k8s/kustomization.yamlenvsubst < k8s/kustomization.tmpl.yaml > k8s/kustomization.yamlenvsubst < k8s/kustomization.tmpl.yaml > k8s/kustomization.yamlenvsubst < k8s/kustomization.tmpl.yaml > k8s/kustomization.yamlenvsubst < k8s/kustomization.tmpl.yaml > k8s/kustomization.yamlenvsubst < k8s/kustomization.tmpl.yaml > k8s/kustomization.yaml
           kubectl kustomize k8s | kubectl apply -f 
-
 
 
 
